@@ -1,194 +1,465 @@
 <!doctype html>
 <html lang="en">
 <head>
+
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+
+<meta
+  name="viewport"
+  content="width=device-width,initial-scale=1,viewport-fit=cover"
+>
 
 <meta name="theme-color" content="#07111f">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="DriveCast">
+
+<meta
+  name="apple-mobile-web-app-capable"
+  content="yes"
+>
+
+<meta
+  name="apple-mobile-web-app-status-bar-style"
+  content="black-translucent"
+>
+
+<meta
+  name="apple-mobile-web-app-title"
+  content="DriveCast"
+>
 
 <link rel="manifest" href="manifest.webmanifest">
 
 <title>DriveCast</title>
 
+
 <style>
 
-:root{
-  color-scheme:dark;
-  --bg:#07111f;
-  --panel:#0d1b2d;
-  --line:#21344d;
-  --text:#f4f7fb;
-  --muted:#93a4ba;
-  --accent:#4da3ff;
+/* =========================
+   DRIVECAST THEME
+========================= */
+
+:root {
+  color-scheme: dark;
+
+  --bg: #07111f;
+  --panel: #0d1b2d;
+  --panel2: #13243a;
+  --line: #21344d;
+
+  --text: #f4f7fb;
+  --muted: #93a4ba;
+
+  --accent: #4da3ff;
 }
 
-*{
-  box-sizing:border-box;
+
+/* =========================
+   BASIC
+========================= */
+
+* {
+  box-sizing: border-box;
 }
 
-body{
-  margin:0;
-  background:var(--bg);
-  color:var(--text);
-  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",sans-serif;
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100%;
 }
 
-.app{
-  min-height:100vh;
-  display:flex;
-  flex-direction:column;
-  padding-top:env(safe-area-inset-top);
+body {
+
+  background: var(--bg);
+
+  color: var(--text);
+
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "SF Pro Display",
+    "Helvetica Neue",
+    Arial,
+    sans-serif;
+
 }
 
-header{
-  padding:12px;
-  position:sticky;
-  top:0;
-  background:rgba(7,17,31,.96);
-  backdrop-filter:blur(16px);
-  z-index:5;
+
+/* =========================
+   APP
+========================= */
+
+.app {
+
+  min-height: 100vh;
+
+  display: flex;
+
+  flex-direction: column;
+
+  padding-top: env(safe-area-inset-top);
+
 }
 
-.row{
-  display:flex;
-  gap:8px;
+
+/* =========================
+   HEADER
+========================= */
+
+header {
+
+  padding: 12px;
+
+  position: sticky;
+
+  top: 0;
+
+  z-index: 100;
+
+  background: rgba(7,17,31,.96);
+
+  backdrop-filter: blur(18px);
+
+  -webkit-backdrop-filter: blur(18px);
+
 }
 
-.url{
-  flex:1;
-  min-width:0;
-  background:var(--panel);
-  border:1px solid var(--line);
-  border-radius:14px;
-  padding:12px 14px;
-  color:var(--text);
-  font-size:16px;
-  outline:none;
+
+.search-row {
+
+  display: flex;
+
+  gap: 8px;
+
 }
 
-button{
-  border:0;
-  background:var(--panel);
-  color:var(--text);
-  border:1px solid var(--line);
-  border-radius:12px;
-  padding:10px 13px;
-  font-size:16px;
+
+.url {
+
+  flex: 1;
+
+  min-width: 0;
+
+  height: 50px;
+
+  padding: 0 15px;
+
+  background: var(--panel);
+
+  color: var(--text);
+
+  border: 1px solid var(--line);
+
+  border-radius: 15px;
+
+  font-size: 16px;
+
+  outline: none;
+
 }
 
-button:active{
-  transform:scale(.97);
+
+.url:focus {
+
+  border-color: var(--accent);
+
 }
 
-.primary{
-  background:var(--accent);
-  color:#06101d;
-  border-color:var(--accent);
-  font-weight:700;
+
+.go {
+
+  height: 50px;
+
+  min-width: 70px;
+
+  border-radius: 15px;
+
+  border: 1px solid var(--accent);
+
+  background: var(--accent);
+
+  color: #06101d;
+
+  font-size: 16px;
+
+  font-weight: 700;
+
 }
 
-main{
-  flex:1;
-  padding:18px 14px;
+
+/* =========================
+   MAIN
+========================= */
+
+main {
+
+  flex: 1;
+
+  padding: 18px 14px 90px;
+
 }
 
-.hero{
-  max-width:760px;
-  margin:8vh auto;
+
+.home {
+
+  max-width: 760px;
+
+  margin: 7vh auto;
+
 }
 
-.logo{
-  font-size:44px;
-  font-weight:800;
-  letter-spacing:-2px;
+
+.logo {
+
+  font-size: 46px;
+
+  font-weight: 800;
+
+  letter-spacing: -2px;
+
+  margin-bottom: 12px;
+
 }
 
-.sub{
-  color:var(--muted);
-  font-size:17px;
-  line-height:1.5;
+
+.subtitle {
+
+  color: var(--muted);
+
+  font-size: 17px;
+
+  line-height: 1.55;
+
 }
 
-.card{
-  margin-top:22px;
-  background:var(--panel);
-  border:1px solid var(--line);
-  border-radius:20px;
-  padding:18px;
+
+/* =========================
+   CARDS
+========================= */
+
+.card {
+
+  margin-top: 22px;
+
+  padding: 20px;
+
+  background: var(--panel);
+
+  border: 1px solid var(--line);
+
+  border-radius: 22px;
+
 }
 
-h2{
-  margin:0 0 12px;
+
+.card h2 {
+
+  margin: 0 0 15px;
+
+  font-size: 22px;
+
 }
 
-.chips{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
+
+.chips {
+
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 10px;
+
 }
 
-.chip{
-  padding:9px 12px;
-  border-radius:999px;
-  background:#13243a;
-  color:#cbd8e8;
+
+.chip {
+
+  padding: 11px 17px;
+
+  border-radius: 999px;
+
+  background: var(--panel2);
+
+  border: 1px solid var(--line);
+
+  color: #d6e2f0;
+
+  font-size: 16px;
+
 }
 
-iframe{
-  width:100%;
-  height:calc(100vh - 160px);
-  border:0;
-  border-radius:14px;
-  background:white;
-  display:none;
+
+/* =========================
+   BROWSER VIEW
+========================= */
+
+.browser {
+
+  width: 100%;
+
+  height: calc(100vh - 170px);
+
+  min-height: 500px;
+
+  border: 0;
+
+  border-radius: 16px;
+
+  background: white;
+
+  display: none;
+
 }
 
-footer{
-  padding:10px 14px calc(10px + env(safe-area-inset-bottom));
-  display:flex;
-  gap:8px;
-  border-top:1px solid var(--line);
-  background:#07111f;
+
+/* =========================
+   MESSAGE
+========================= */
+
+.message {
+
+  display: none;
+
+  padding: 30px 20px;
+
+  text-align: center;
+
+  color: var(--muted);
+
 }
 
-footer button{
-  flex:1;
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+
+  position: fixed;
+
+  left: 0;
+
+  right: 0;
+
+  bottom: 0;
+
+  z-index: 100;
+
+  display: flex;
+
+  gap: 8px;
+
+  padding:
+    10px
+    14px
+    calc(10px + env(safe-area-inset-bottom));
+
+  background: rgba(7,17,31,.97);
+
+  border-top: 1px solid var(--line);
+
+  backdrop-filter: blur(18px);
+
+  -webkit-backdrop-filter: blur(18px);
+
 }
 
-@media(min-width:700px){
 
-  header,
-  footer{
-    padding-left:24px;
-    padding-right:24px;
+.footer-button {
+
+  flex: 1;
+
+  height: 48px;
+
+  background: var(--panel);
+
+  color: var(--text);
+
+  border: 1px solid var(--line);
+
+  border-radius: 14px;
+
+  font-size: 23px;
+
+}
+
+
+.footer-button:active,
+.chip:active,
+.go:active {
+
+  transform: scale(.97);
+
+}
+
+
+/* =========================
+   DESKTOP
+========================= */
+
+@media (min-width: 700px) {
+
+  header {
+
+    padding-left: 24px;
+
+    padding-right: 24px;
+
+  }
+
+  main {
+
+    padding-left: 24px;
+
+    padding-right: 24px;
+
+  }
+
+  footer {
+
+    padding-left: 24px;
+
+    padding-right: 24px;
+
   }
 
 }
 
 </style>
+
 </head>
+
 
 <body>
 
+
 <div class="app">
+
+
+<!-- =========================
+     HEADER
+========================= -->
 
 <header>
 
-  <div class="row">
+  <div class="search-row">
 
     <input
       id="url"
       class="url"
+      type="text"
       inputmode="url"
       autocomplete="off"
+      autocorrect="off"
       autocapitalize="none"
       placeholder="Search or enter website"
     >
 
-    <button id="go" class="primary">
+    <button
+      id="go"
+      class="go"
+      type="button"
+    >
       Go
     </button>
 
@@ -196,144 +467,262 @@ footer button{
 
 </header>
 
+
+
+<!-- =========================
+     MAIN
+========================= -->
+
 <main>
 
-<section id="home" class="hero">
+
+<!-- HOME -->
+
+<section
+  id="home"
+  class="home"
+>
 
   <div class="logo">
     DriveCast
   </div>
 
-  <p class="sub">
-    A simple web browser built for discovering and playing web video.
-    Add it to your iPhone Home Screen for an app-like experience.
-  </p>
+
+  <div class="subtitle">
+
+    A simple web browser built for discovering
+    and playing web video.
+
+    Add DriveCast to your iPhone Home Screen
+    for an app-like experience.
+
+  </div>
+
+
+
+  <!-- QUICK START -->
 
   <div class="card">
 
     <h2>
-      Quick start
+      Quick Start
     </h2>
+
 
     <div class="chips">
 
-      <button
-        class="chip"
-        data-external="https://www.youtube.com/"
-      >
-        YouTube
-      </button>
+
+      <!-- YOUTUBE -->
 
       <button
         class="chip"
+        type="button"
+        data-external="https://www.youtube.com/"
+      >
+        ▶ YouTube
+      </button>
+
+
+      <!-- VIMEO -->
+
+      <button
+        class="chip"
+        type="button"
         data-external="https://vimeo.com/"
       >
         Vimeo
       </button>
 
+
+      <!-- GOOGLE -->
+
       <button
         class="chip"
+        type="button"
         data-url="https://www.google.com/"
       >
         Google
       </button>
 
+
     </div>
 
   </div>
 
+
+
+  <!-- INFORMATION -->
+
   <div class="card">
 
-    <strong>
-      DriveCast
-    </strong>
+    <h2>
+      About DriveCast
+    </h2>
 
-    <p class="sub">
-      YouTube and Vimeo may block embedded browsers.
-      DriveCast opens these services directly.
-      AirPlay availability depends on iOS and the website/video player.
-    </p>
+    <div class="subtitle">
+
+      DriveCast can open websites and discover
+      web video.
+
+      <br><br>
+
+      Some services such as YouTube and Vimeo
+      prevent their pages from being displayed
+      inside embedded browsers.
+
+      DriveCast therefore opens those services
+      directly.
+
+      <br><br>
+
+      AirPlay availability depends on iOS,
+      the website and the video player.
+
+    </div>
 
   </div>
 
+
 </section>
 
+
+
+<!-- =========================
+     WEBSITE VIEW
+========================= -->
+
 <iframe
-  id="view"
-  allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
-  allowfullscreen>
-</iframe>
+  id="browser"
+  class="browser"
+  title="DriveCast Browser"
+  allow="
+    autoplay;
+    fullscreen;
+    picture-in-picture;
+    encrypted-media
+  "
+  allowfullscreen
+></iframe>
+
+
+<div
+  id="message"
+  class="message"
+></div>
+
 
 </main>
 
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
 <footer>
 
-  <button id="back">
+
+  <button
+    id="back"
+    class="footer-button"
+    type="button"
+    aria-label="Back"
+  >
     ‹
   </button>
 
-  <button id="forward">
+
+  <button
+    id="forward"
+    class="footer-button"
+    type="button"
+    aria-label="Forward"
+  >
     ›
   </button>
 
-  <button id="reload">
+
+  <button
+    id="reload"
+    class="footer-button"
+    type="button"
+    aria-label="Reload"
+  >
     ↻
   </button>
 
-  <button id="homeBtn">
+
+  <button
+    id="homeButton"
+    class="footer-button"
+    type="button"
+    aria-label="Home"
+  >
     ⌂
   </button>
 
+
 </footer>
+
 
 </div>
 
+
+
 <script>
 
-const input = document.getElementById("url");
-const frame = document.getElementById("view");
-const home = document.getElementById("home");
+/* =====================================================
+   DRIVECAST JAVASCRIPT
+===================================================== */
+
+const input =
+  document.getElementById("url");
+
+const browser =
+  document.getElementById("browser");
+
+const home =
+  document.getElementById("home");
+
+const message =
+  document.getElementById("message");
 
 
-/*
-  Open YouTube/Vimeo directly.
 
-  We intentionally use location.href instead of
-  window.open() because DriveCast may be running
-  as an iPhone Home Screen web app.
-*/
+/* =====================================================
+   DETECT YOUTUBE / VIMEO
+===================================================== */
 
-function openExternal(url){
+function isExternalVideoSite(url) {
 
-  window.location.href = url;
+  try {
 
-}
-
-
-/*
-  Detect websites that don't reliably allow
-  iframe embedding.
-*/
-
-function isBlockedSite(url){
-
-  try{
+    const parsed =
+      new URL(url);
 
     const host =
-      new URL(url)
-      .hostname
-      .replace(/^www\./,"")
-      .toLowerCase();
+      parsed.hostname
+        .toLowerCase()
+        .replace(/^www\./, "");
+
 
     return (
+
       host === "youtube.com" ||
+
       host.endsWith(".youtube.com") ||
+
       host === "youtu.be" ||
+
       host === "vimeo.com" ||
+
       host.endsWith(".vimeo.com")
+
     );
 
-  }catch(error){
+  }
+
+  catch (error) {
 
     return false;
 
@@ -342,51 +731,102 @@ function isBlockedSite(url){
 }
 
 
-/*
-  Navigate to a website or search Google.
-*/
 
-function navigate(value){
+/* =====================================================
+   OPEN EXTERNAL WEBSITE
+===================================================== */
 
-  let v = value.trim();
+function openExternal(url) {
 
-  if(!v){
-    return;
+  /*
+   * IMPORTANT:
+   *
+   * Do NOT use window.open().
+   *
+   * iPhone Home Screen web apps can block
+   * new-window requests.
+   *
+   * location.href sends the current page directly
+   * to the requested website.
+   */
+
+  window.location.href = url;
+
+}
+
+
+
+/* =====================================================
+   PREPARE URL
+===================================================== */
+
+function prepareUrl(value) {
+
+  let url =
+    value.trim();
+
+
+  if (!url) {
+
+    return null;
+
   }
 
 
   /*
-    Add HTTPS automatically.
-  */
+   * If it already has HTTP/HTTPS,
+   * leave it alone.
+   */
 
-  if(!/^https?:\/\//i.test(v)){
+  if (
+    !/^https?:\/\//i.test(url)
+  ) {
 
-    if(v.includes(".")){
+    /*
+     * Looks like a website.
+     */
 
-      v = "https://" + v;
+    if (
+      url.includes(".")
+    ) {
 
-    }else{
+      url =
+        "https://" + url;
 
-      v =
+    }
+
+    /*
+     * Otherwise perform Google search.
+     */
+
+    else {
+
+      url =
         "https://www.google.com/search?q=" +
-        encodeURIComponent(v);
+        encodeURIComponent(url);
 
     }
 
   }
 
 
-  input.value = v;
+  return url;
+
+}
 
 
-  /*
-    YouTube / Vimeo:
-    open directly instead of iframe.
-  */
 
-  if(isBlockedSite(v)){
+/* =====================================================
+   NAVIGATE
+===================================================== */
 
-    openExternal(v);
+function navigate(value) {
+
+  const url =
+    prepareUrl(value);
+
+
+  if (!url) {
 
     return;
 
@@ -394,156 +834,294 @@ function navigate(value){
 
 
   /*
-    Other websites:
-    open inside DriveCast.
-  */
+   * Put URL in search field.
+   */
 
-  home.style.display = "none";
-
-  frame.style.display = "block";
-
-  frame.src = v;
+  input.value =
+    url;
 
 
   /*
-    Save navigation state.
-  */
+   * IMPORTANT:
+   *
+   * Check YouTube/Vimeo BEFORE displaying
+   * the iframe.
+   */
 
-  try{
+  if (
+    isExternalVideoSite(url)
+  ) {
+
+    openExternal(url);
+
+    return;
+
+  }
+
+
+  /*
+   * Normal website.
+   */
+
+  home.style.display =
+    "none";
+
+  message.style.display =
+    "none";
+
+  browser.style.display =
+    "block";
+
+  browser.src =
+    url;
+
+
+  /*
+   * Save URL in browser history.
+   */
+
+  try {
 
     history.pushState(
-      {url:v},
+      { url: url },
       "",
       location.href.split("#")[0] +
       "#" +
-      encodeURIComponent(v)
+      encodeURIComponent(url)
     );
 
-  }catch(error){}
+  }
+
+  catch (error) {
+
+    /* Ignore history errors */
+
+  }
 
 }
 
 
-/*
-  Go button.
-*/
 
-document.getElementById("go").onclick = function(){
-
-  navigate(input.value);
-
-};
-
-
-/*
-  Enter key.
-*/
-
-input.addEventListener("keydown",function(event){
-
-  if(event.key === "Enter"){
-
-    navigate(input.value);
-
-  }
-
-});
-
-
-/*
-  Normal internal links.
-*/
+/* =====================================================
+   GO BUTTON
+===================================================== */
 
 document
-  .querySelectorAll("[data-url]")
-  .forEach(function(button){
+  .getElementById("go")
+  .addEventListener(
+    "click",
+    function() {
 
-    button.onclick = function(){
+      navigate(
+        input.value
+      );
 
-      navigate(button.dataset.url);
-
-    };
-
-  });
-
-
-/*
-  External links.
-*/
-
-document
-  .querySelectorAll("[data-external]")
-  .forEach(function(button){
-
-    button.onclick = function(){
-
-      openExternal(button.dataset.external);
-
-    };
-
-  });
+    }
+  );
 
 
-/*
-  Home.
-*/
 
-document.getElementById("homeBtn").onclick = function(){
+/* =====================================================
+   ENTER KEY
+===================================================== */
 
-  frame.style.display = "none";
+input.addEventListener(
+  "keydown",
+  function(event) {
 
-  home.style.display = "block";
+    if (
+      event.key === "Enter"
+    ) {
 
-  input.value = "";
+      navigate(
+        input.value
+      );
 
-};
-
-
-/*
-  Reload.
-*/
-
-document.getElementById("reload").onclick = function(){
-
-  if(frame.style.display !== "none"){
-
-    frame.src = frame.src;
+    }
 
   }
-
-};
-
-
-/*
-  Back.
-*/
-
-document.getElementById("back").onclick = function(){
-
-  try{
-
-    frame.contentWindow.history.back();
-
-  }catch(error){}
-
-};
+);
 
 
-/*
-  Forward.
-*/
 
-document.getElementById("forward").onclick = function(){
+/* =====================================================
+   QUICK LINKS
+===================================================== */
 
-  try{
+document
+  .querySelectorAll(
+    "[data-external]"
+  )
+  .forEach(
+    function(button) {
 
-    frame.contentWindow.history.forward();
+      button.addEventListener(
+        "click",
+        function() {
 
-  }catch(error){}
+          const url =
+            button.dataset.external;
 
-};
+          openExternal(url);
+
+        }
+      );
+
+    }
+  );
+
+
+
+/* =====================================================
+   INTERNAL QUICK LINKS
+===================================================== */
+
+document
+  .querySelectorAll(
+    "[data-url]"
+  )
+  .forEach(
+    function(button) {
+
+      button.addEventListener(
+        "click",
+        function() {
+
+          navigate(
+            button.dataset.url
+          );
+
+        }
+      );
+
+    }
+  );
+
+
+
+/* =====================================================
+   HOME BUTTON
+===================================================== */
+
+document
+  .getElementById("homeButton")
+  .addEventListener(
+    "click",
+    function() {
+
+      browser.style.display =
+        "none";
+
+      message.style.display =
+        "none";
+
+      home.style.display =
+        "block";
+
+      input.value =
+        "";
+
+    }
+  );
+
+
+
+/* =====================================================
+   RELOAD
+===================================================== */
+
+document
+  .getElementById("reload")
+  .addEventListener(
+    "click",
+    function() {
+
+      if (
+        browser.style.display !== "none"
+      ) {
+
+        browser.src =
+          browser.src;
+
+      }
+
+    }
+  );
+
+
+
+/* =====================================================
+   BACK
+===================================================== */
+
+document
+  .getElementById("back")
+  .addEventListener(
+    "click",
+    function() {
+
+      try {
+
+        browser
+          .contentWindow
+          .history
+          .back();
+
+      }
+
+      catch (error) {
+
+        /* Some websites block iframe navigation */
+
+      }
+
+    }
+  );
+
+
+
+/* =====================================================
+   FORWARD
+===================================================== */
+
+document
+  .getElementById("forward")
+  .addEventListener(
+    "click",
+    function() {
+
+      try {
+
+        browser
+          .contentWindow
+          .history
+          .forward();
+
+      }
+
+      catch (error) {
+
+        /* Some websites block iframe navigation */
+
+      }
+
+    }
+  );
+
+
+
+/* =====================================================
+   INITIAL PAGE
+===================================================== */
+
+browser.style.display =
+  "none";
+
+home.style.display =
+  "block";
 
 </script>
+
 
 </body>
 </html>
