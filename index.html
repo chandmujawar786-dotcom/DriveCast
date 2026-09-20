@@ -40,14 +40,14 @@ footer{padding:10px 14px calc(10px + env(safe-area-inset-bottom));display:flex;g
     <div class="card">
       <h2>Quick start</h2>
       <div class="chips">
-        <button class="chip" data-url="https://www.youtube.com">YouTube</button>
-        <button class="chip" data-url="https://vimeo.com">Vimeo</button>
+        <button class="chip" data-external="https://www.youtube.com/">YouTube</button>
+        <button class="chip" data-external="https://vimeo.com/">Vimeo</button>
         <button class="chip" data-url="https://www.google.com">Google</button>
       </div>
     </div>
     <div class="card">
       <strong>Note</strong>
-      <p class="sub">Some websites block embedded browsers. In those cases, use Safari. AirPlay availability is controlled by iOS and the website/video player.</p>
+      <p class="sub">Some websites such as YouTube and Vimeo block embedded browsers. DriveCast now opens those sites externally in Safari. AirPlay availability is controlled by iOS and the website/video player.</p>
     </div>
   </section>
   <iframe id="view" allow="autoplay; fullscreen; picture-in-picture; encrypted-media" allowfullscreen></iframe>
@@ -58,15 +58,35 @@ footer{padding:10px 14px calc(10px + env(safe-area-inset-bottom));display:flex;g
 </div>
 <script>
 const input=document.getElementById('url'), frame=document.getElementById('view'), home=document.getElementById('home');
+function openExternal(url){
+  window.open(url, '_blank', 'noopener,noreferrer');
+}
+
+function isBlockedSite(url){
+  try{
+    const host=new URL(url).hostname.replace(/^www\./,'').toLowerCase();
+    return host==='youtube.com' || host.endsWith('.youtube.com') ||
+           host==='vimeo.com' || host.endsWith('.vimeo.com');
+  }catch(e){ return false; }
+}
+
 function navigate(value){
   let v=value.trim(); if(!v)return;
-  if(!/^https?:\/\//i.test(v)){v=v.includes('.')?'https://'+v:'https://www.google.com/search?q='+encodeURIComponent(v)}
-  input.value=v; home.style.display='none'; frame.style.display='block'; frame.src=v;
+  if(!/^https?:\/\//i.test(v)){
+    v=v.includes('.')?'https://'+v:'https://www.google.com/search?q='+encodeURIComponent(v)
+  }
+  input.value=v;
+  if(isBlockedSite(v)){
+    openExternal(v);
+    return;
+  }
+  home.style.display='none'; frame.style.display='block'; frame.src=v;
   try{history.pushState({url:v},'',location.href.split('#')[0]+'#'+encodeURIComponent(v))}catch(e){}
 }
 document.getElementById('go').onclick=()=>navigate(input.value);
 input.addEventListener('keydown',e=>{if(e.key==='Enter')navigate(input.value)});
 document.querySelectorAll('[data-url]').forEach(b=>b.onclick=()=>navigate(b.dataset.url));
+document.querySelectorAll('[data-external]').forEach(b=>b.onclick=()=>openExternal(b.dataset.external));
 document.getElementById('homeBtn').onclick=()=>{frame.style.display='none';home.style.display='block';input.value=''};
 document.getElementById('reload').onclick=()=>{if(frame.style.display!=='none')frame.src=frame.src};
 document.getElementById('back').onclick=()=>{try{frame.contentWindow.history.back()}catch(e){}};
