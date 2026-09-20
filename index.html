@@ -3,14 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+
 <meta name="theme-color" content="#07111f">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="DriveCast">
+
 <link rel="manifest" href="manifest.webmanifest">
+
 <title>DriveCast</title>
 
 <style>
+
 :root{
   color-scheme:dark;
   --bg:#07111f;
@@ -155,11 +159,15 @@ footer button{
 }
 
 @media(min-width:700px){
-  header,footer{
+
+  header,
+  footer{
     padding-left:24px;
     padding-right:24px;
   }
+
 }
+
 </style>
 </head>
 
@@ -168,6 +176,7 @@ footer button{
 <div class="app">
 
 <header>
+
   <div class="row">
 
     <input
@@ -184,6 +193,7 @@ footer button{
     </button>
 
   </div>
+
 </header>
 
 <main>
@@ -196,7 +206,7 @@ footer button{
 
   <p class="sub">
     A simple web browser built for discovering and playing web video.
-    Add DriveCast to your iPhone Home Screen for an app-like experience.
+    Add it to your iPhone Home Screen for an app-like experience.
   </p>
 
   <div class="card">
@@ -240,7 +250,7 @@ footer button{
 
     <p class="sub">
       YouTube and Vimeo may block embedded browsers.
-      DriveCast opens these services directly when required.
+      DriveCast opens these services directly.
       AirPlay availability depends on iOS and the website/video player.
     </p>
 
@@ -284,14 +294,15 @@ const input = document.getElementById("url");
 const frame = document.getElementById("view");
 const home = document.getElementById("home");
 
-/*
-  Open websites that don't allow iframe embedding.
 
-  IMPORTANT:
-  We use window.location.href instead of window.open().
-  This is more reliable when DriveCast is running
+/*
+  Open YouTube/Vimeo directly.
+
+  We intentionally use location.href instead of
+  window.open() because DriveCast may be running
   as an iPhone Home Screen web app.
 */
+
 function openExternal(url){
 
   window.location.href = url;
@@ -300,8 +311,10 @@ function openExternal(url){
 
 
 /*
-  Websites that normally block iframe embedding.
+  Detect websites that don't reliably allow
+  iframe embedding.
 */
+
 function isBlockedSite(url){
 
   try{
@@ -320,7 +333,7 @@ function isBlockedSite(url){
       host.endsWith(".vimeo.com")
     );
 
-  }catch(e){
+  }catch(error){
 
     return false;
 
@@ -330,8 +343,9 @@ function isBlockedSite(url){
 
 
 /*
-  Navigate to a website or perform a Google search.
+  Navigate to a website or search Google.
 */
+
 function navigate(value){
 
   let v = value.trim();
@@ -340,11 +354,11 @@ function navigate(value){
     return;
   }
 
+
   /*
-    If the user types something without
-    http:// or https://, determine whether
-    it is a website or a search.
+    Add HTTPS automatically.
   */
+
   if(!/^https?:\/\//i.test(v)){
 
     if(v.includes(".")){
@@ -361,13 +375,15 @@ function navigate(value){
 
   }
 
+
   input.value = v;
 
 
   /*
-    YouTube/Vimeo cannot reliably be displayed
-    inside our iframe, so open them directly.
+    YouTube / Vimeo:
+    open directly instead of iframe.
   */
+
   if(isBlockedSite(v)){
 
     openExternal(v);
@@ -378,8 +394,10 @@ function navigate(value){
 
 
   /*
-    Display other websites inside DriveCast.
+    Other websites:
+    open inside DriveCast.
   */
+
   home.style.display = "none";
 
   frame.style.display = "block";
@@ -388,8 +406,9 @@ function navigate(value){
 
 
   /*
-    Store navigation state.
+    Save navigation state.
   */
+
   try{
 
     history.pushState(
@@ -400,7 +419,7 @@ function navigate(value){
       encodeURIComponent(v)
     );
 
-  }catch(e){}
+  }catch(error){}
 
 }
 
@@ -408,6 +427,7 @@ function navigate(value){
 /*
   Go button.
 */
+
 document.getElementById("go").onclick = function(){
 
   navigate(input.value);
@@ -416,11 +436,12 @@ document.getElementById("go").onclick = function(){
 
 
 /*
-  Keyboard Enter.
+  Enter key.
 */
-input.addEventListener("keydown",function(e){
 
-  if(e.key === "Enter"){
+input.addEventListener("keydown",function(event){
+
+  if(event.key === "Enter"){
 
     navigate(input.value);
 
@@ -430,8 +451,9 @@ input.addEventListener("keydown",function(e){
 
 
 /*
-  Quick links that can be opened inside DriveCast.
+  Normal internal links.
 */
+
 document
   .querySelectorAll("[data-url]")
   .forEach(function(button){
@@ -446,8 +468,9 @@ document
 
 
 /*
-  External links such as YouTube.
+  External links.
 */
+
 document
   .querySelectorAll("[data-external]")
   .forEach(function(button){
@@ -462,8 +485,9 @@ document
 
 
 /*
-  Home button.
+  Home.
 */
+
 document.getElementById("homeBtn").onclick = function(){
 
   frame.style.display = "none";
@@ -476,8 +500,9 @@ document.getElementById("homeBtn").onclick = function(){
 
 
 /*
-  Reload current page.
+  Reload.
 */
+
 document.getElementById("reload").onclick = function(){
 
   if(frame.style.display !== "none"){
@@ -492,13 +517,14 @@ document.getElementById("reload").onclick = function(){
 /*
   Back.
 */
+
 document.getElementById("back").onclick = function(){
 
   try{
 
     frame.contentWindow.history.back();
 
-  }catch(e){}
+  }catch(error){}
 
 };
 
@@ -506,13 +532,14 @@ document.getElementById("back").onclick = function(){
 /*
   Forward.
 */
+
 document.getElementById("forward").onclick = function(){
 
   try{
 
     frame.contentWindow.history.forward();
 
-  }catch(e){}
+  }catch(error){}
 
 };
 
