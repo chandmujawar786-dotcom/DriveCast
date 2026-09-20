@@ -1,0 +1,25 @@
+name: DriveCast
+options:
+  bundleIdPrefix: com.drivecast
+  deploymentTarget:
+    iOS: "16.0"
+settings:
+  SWIFT_VERSION: "5.0"
+targets:
+  DriveCast:
+    type: application
+    platform: iOS
+    sources:
+      - DriveCast.swift
+    info:
+      path: Info.plist
+    entitlements:
+      path: DriveCast.entitlements
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: com.drivecast.app
+      MARKETING_VERSION: "1.0"
+      CURRENT_PROJECT_VERSION: "1"
+      TARGETED_DEVICE_FAMILY: "1,2"
+      INFOPLIST_FILE: Info.plist
+    scheme:
+      testTargets: []

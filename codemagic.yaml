@@ -1,0 +1,24 @@
+workflows:
+  drivecast-ios:
+    name: DriveCast iOS
+    instance_type: mac_mini_m2
+    max_build_duration: 30
+    environment:
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: com.drivecast.app
+      xcode: latest
+    scripts:
+      - name: Install XcodeGen
+        script: brew install xcodegen
+      - name: Generate Xcode project
+        script: xcodegen generate
+      - name: Build IPA
+        script: xcode-project build-ipa --project "DriveCast.xcodeproj" --scheme "DriveCast"
+    artifacts:
+      - build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.log
+    publishing:
+      app_store_connect:
+        auth: integration
+        submit_to_testflight: true
