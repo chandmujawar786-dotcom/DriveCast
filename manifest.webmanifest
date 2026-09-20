@@ -1,0 +1,9 @@
+{
+  "name":"DriveCast",
+  "short_name":"DriveCast",
+  "start_url":"./",
+  "display":"standalone",
+  "background_color":"#07111f",
+  "theme_color":"#07111f",
+  "description":"DriveCast web browser and video discovery app."
+}

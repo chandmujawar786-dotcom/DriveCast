@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#07111f">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="DriveCast">
+<link rel="manifest" href="manifest.webmanifest">
+<title>DriveCast</title>
+<style>
+:root{color-scheme:dark;--bg:#07111f;--panel:#0d1b2d;--line:#21344d;--text:#f4f7fb;--muted:#93a4ba;--accent:#4da3ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",sans-serif}
+.app{min-height:100vh;display:flex;flex-direction:column;padding-top:env(safe-area-inset-top)}
+header{padding:12px;position:sticky;top:0;background:rgba(7,17,31,.96);backdrop-filter:blur(16px);z-index:5}
+.row{display:flex;gap:8px}.url{flex:1;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 14px;color:var(--text);font-size:16px;outline:none}
+button{border:0;background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:12px;padding:10px 13px;font-size:16px}
+.primary{background:var(--accent);color:#06101d;border-color:var(--accent);font-weight:700}
+main{flex:1;padding:18px 14px}.hero{max-width:760px;margin:8vh auto}.logo{font-size:44px;font-weight:800;letter-spacing:-2px}.sub{color:var(--muted);font-size:17px;line-height:1.5}
+.card{margin-top:22px;background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:18px}
+h2{margin:0 0 12px}.chips{display:flex;gap:8px;flex-wrap:wrap}.chip{padding:9px 12px;border-radius:999px;background:#13243a;color:#cbd8e8}
+iframe{width:100%;height:calc(100vh - 160px);border:0;border-radius:14px;background:white;display:none}
+footer{padding:10px 14px calc(10px + env(safe-area-inset-bottom));display:flex;gap:8px;border-top:1px solid var(--line);background:#07111f}
+@media(min-width:700px){header,footer{padding-left:24px;padding-right:24px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+  <div class="row">
+    <input id="url" class="url" inputmode="url" autocomplete="off" placeholder="Search or enter website">
+    <button id="go" class="primary">Go</button>
+  </div>
+</header>
+<main>
+  <section id="home" class="hero">
+    <div class="logo">DriveCast</div>
+    <p class="sub">A simple web browser built for discovering and playing web video. Add it to your iPhone Home Screen for an app-like experience.</p>
+    <div class="card">
+      <h2>Quick start</h2>
+      <div class="chips">
+        <button class="chip" data-url="https://www.youtube.com">YouTube</button>
+        <button class="chip" data-url="https://vimeo.com">Vimeo</button>
+        <button class="chip" data-url="https://www.google.com">Google</button>
+      </div>
+    </div>
+    <div class="card">
+      <strong>Note</strong>
+      <p class="sub">Some websites block embedded browsers. In those cases, use Safari. AirPlay availability is controlled by iOS and the website/video player.</p>
+    </div>
+  </section>
+  <iframe id="view" allow="autoplay; fullscreen; picture-in-picture; encrypted-media" allowfullscreen></iframe>
+</main>
+<footer>
+  <button id="back">‹</button><button id="forward">›</button><button id="reload">↻</button><button id="homeBtn">⌂</button>
+</footer>
+</div>
+<script>
+const input=document.getElementById('url'), frame=document.getElementById('view'), home=document.getElementById('home');
+function navigate(value){
+  let v=value.trim(); if(!v)return;
+  if(!/^https?:\/\//i.test(v)){v=v.includes('.')?'https://'+v:'https://www.google.com/search?q='+encodeURIComponent(v)}
+  input.value=v; home.style.display='none'; frame.style.display='block'; frame.src=v;
+  try{history.pushState({url:v},'',location.href.split('#')[0]+'#'+encodeURIComponent(v))}catch(e){}
+}
+document.getElementById('go').onclick=()=>navigate(input.value);
+input.addEventListener('keydown',e=>{if(e.key==='Enter')navigate(input.value)});
+document.querySelectorAll('[data-url]').forEach(b=>b.onclick=()=>navigate(b.dataset.url));
+document.getElementById('homeBtn').onclick=()=>{frame.style.display='none';home.style.display='block';input.value=''};
+document.getElementById('reload').onclick=()=>{if(frame.style.display!=='none')frame.src=frame.src};
+document.getElementById('back').onclick=()=>{try{frame.contentWindow.history.back()}catch(e){}};
+document.getElementById('forward').onclick=()=>{try{frame.contentWindow.history.forward()}catch(e){}};
+</script>
+</body>
+</html>

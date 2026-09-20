@@ -1,21 +1,10 @@
-# DriveCast
+# DriveCast PWA
 
-DriveCast is a SwiftUI iOS browser/casting app starter.
+Free web/PWA prototype for iPhone.
 
-## GitHub upload
-Upload the contents of this folder to the root of the DriveCast repository.
+## GitHub Pages
+Upload these files to a GitHub repository and enable GitHub Pages from Settings → Pages → Deploy from branch → main → /(root).
 
-The repository intentionally does not contain an Xcode project. Codemagic generates it from `project.yml` using XcodeGen on the cloud Mac.
+Then open the Pages URL on iPhone Safari and choose Share → Add to Home Screen.
 
-## Current V1
-- WKWebView browser
-- Search/address bar
-- Back/forward/reload/home
-- Native AirPlay route picker
-- Local network permission configuration
-- Codemagic build workflow
-
-## Next
-Chromecast/Google TV remote media casting and automatic web-video detection will be added after the first signed build is working.
-
-CarPlay video requires Apple's appropriate entitlement/approval.
+Note: iOS/websites may block iframe embedding. A native iOS version with full casting/CarPlay requires Apple's native distribution/signing and relevant entitlements.
